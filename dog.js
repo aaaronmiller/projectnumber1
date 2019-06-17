@@ -13,14 +13,14 @@ $.ajax({
         headers: {
             Authorization: "Bearer " + accessToken,
         },
-        url: " https://api.petfinder.com/v2/animals?type=dog&limit=4"
+        url: " https://api.petfinder.com/v2/animals?type=dog&limit=8"
     }).then(function (data) {
 
         var results = data;//store data from ajax request in result var
-        var pictureDefault = "https://www.logoground.com/uploads/20172422017-06-034038115happy-cartoon-dog-logo.jpg"
-        var photoToUse=""
-        var dogDescriptionDefault = "N/A"
-        var dogDescriptionToUse = ""
+        var pictureDefault = "https://www.logoground.com/uploads/20172422017-06-034038115happy-cartoon-dog-logo.jpg";
+        var pictureToUse="";
+        var dogDescriptionDefault = "N/A";
+        var dogDescriptionToUse = "";
         var dogSound = new Audio();
         dogSound.src = "Dog Woof.mp3"
       
