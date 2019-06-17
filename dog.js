@@ -84,3 +84,142 @@ $.ajax({
     })
 
 })
+
+// Dog Parks
+$(function () {
+
+    // Adding click event listener to all buttons
+    $(document).on("click", ".btn-primary", function () {
+
+        // Empty html <div>
+        $("#dogParks-appear-here").empty();
+
+        // Performing the AJAX request from Seattle Parks and Recreation; initial ten off leash dog parks  
+        $.ajax({
+            url: "https://data.seattle.gov/resource/j9km-ydkc.json?feature_desc=Dog Off Leash Area",
+            type: "GET",
+            // data: {
+            // "$limit": 100,
+            // "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
+            // }
+        }).then(function (data) {
+            console.log("data from seattle parks ", data);
+
+            // Looping through each result item
+            for (var i = 0; i < data.length; i++) {
+
+                // Creating and storing a div tag
+                var dogParkDiv = $("<div>");
+
+                // Creating a paragraph tag with the result info
+                var dogParkInfo = $("<p>").text("Dog Park Info: " + data[i].name + ", Location: latitude " + data[i].location.latitude + " longitude " + data[i].location.latitude + ", hours: " + data[i].hours);
+
+                // Appending the paragraph tag to the dogParkDiv
+                dogParkDiv.append(dogParkInfo);
+
+                // Prepending the dogParkDiv to the HTML page 
+                $("#dogParks-appear-here").prepend(dogParkDiv);
+            }
+        });
+
+        // Northacres Park
+        // $.ajax({
+        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Northacres Park",
+        //   type: "GET",
+        //   // data: {
+        //   //   "$limit": 100,
+        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
+        //   // }
+        // }).done(function (data1) {
+        //   console.log("data from Northacres ", data1);
+
+        //   // Creating and storing a div tag
+        //   var dogParkDiv = $("<div>");
+
+        //   // Creating a paragraph tag with the result
+        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data1[0].name + ", Location: latitude " +data1[0].location.latitude+ " longitude "+ data1[0].location.latitude+ ", hours: "+ data1[0].hours);
+
+        //   // Appending the paragraph ta1 to the dogParkDiv
+        //   dogParkDiv.append(dogParkInfo);
+
+        //   // Prepending the dogParkDiv to the HTML page 
+        //   $("#dogParks-appear-here").prepend(dogParkDiv);
+        // });
+
+        // Woodland Park
+        // $.ajax({
+        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Woodland Park",
+        //   type: "GET",
+        //   // data: {
+        //   //   "$limit": 5000,
+        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
+        //   // }
+        // }).done(function (data2) {
+        //   console.log("data from Woodland ", data2);
+
+        //   // Creating and storing a div tag
+        //   var dogParkDiv = $("<div>");
+
+        //   // Creating a paragraph tag with the result
+        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data2[0].name + ", Location: latitude " +data2[0].location.latitude+ " longitude "+ data2[0].location.latitude+ ", hours: "+ data2[0].hours);
+
+        //   // Appending the paragraph ta1 to the dogParkDiv
+        //   dogParkDiv.append(dogParkInfo);
+
+        //   // Prepending the dogParkDiv to the HTML page 
+        //   $("#dogParks-appear-here").prepend(dogParkDiv);
+        // });
+
+        // Regrade Park
+        // $.ajax({
+        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Regrade Park",
+        //   type: "GET",
+        //   // data: {
+        //   //   "$limit": 5000,
+        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
+        //   // }
+        // }).done(function (data3) {
+        //   console.log("data from Regarade ", data3);
+
+        //   // Creating and storing a div tag
+        //   var dogParkDiv = $("<div>");
+
+        //   // Creating a paragraph tag with the result
+        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data3[0].name + ", Location: latitude " +data3[0].location.latitude+ " longitude "+ data3[0].location.latitude+ ", hours: "+ data3[0].hours);
+
+        //   // Appending the paragraph ta1 to the dogParkDiv
+        //   dogParkDiv.append(dogParkInfo);
+
+        //   // Prepending the dogParkDiv to the HTML page 
+        //   $("#dogParks-appear-here").prepend(dogParkDiv);
+        // });
+
+        // Magnolia Park
+        // $.ajax({
+        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Magnolia Park",
+        //   type: "GET",
+        //   // data: {
+        //   //   "$limit": 5000,
+        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
+        //   // }
+        // }).done(function (data4) {
+        //   console.log("data from Magnolia ", data4);
+
+        //   // Creating and storing a div tag
+        //   var dogParkDiv = $("<div>");
+
+        //   // Creating a paragraph tag with the result
+        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data4[0].name + ", Location: latitude " +data4[0].location.latitude+ " longitude "+ data4[0].location.latitude+ ", hours: "+ data4[0].hours);
+
+        //   // Appending the paragraph ta1 to the dogParkDiv
+        //   dogParkDiv.append(dogParkInfo);
+
+        //   // Prepending the dogParkDiv to the HTML page 
+        //   $("#dogParks-appear-here").prepend(dogParkDiv);
+        // });
+
+        // End of onclick function
+    })
+
+    // End of function
+})
