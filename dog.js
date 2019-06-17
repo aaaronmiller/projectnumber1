@@ -21,8 +21,7 @@ $.ajax({
         var photoToUse=""
         var dogDescriptionDefault = "N/A"
         var dogDescriptionToUse = ""
-        var dogSound = new Audio();
-        dogSound.src = "Dog Woof.mp3"
+        
       
 
         console.log(data)
@@ -54,7 +53,7 @@ $.ajax({
             pawMeButton.attr("gender", results.animals[i].gender);
             pawMeButton.attr("description", results.animals[i].description);
             pawMeButton.attr("src", results.animals[i].url);
-            
+            s
 
             dogImage.attr("src", pictureToUse);
             //adds paragraph and image tag to dogDiv
