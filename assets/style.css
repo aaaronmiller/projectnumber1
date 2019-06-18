@@ -1,5 +1,10 @@
 #carousel {
-    width: 100%;
+    /* width: 100%; */
+    /* margin: 0; */
+    margin-left: 105px;
+    /* margin-right: -15px; */
+    /* margin: auto; */
+    overflow: hidden;
 }
 
 .jumbotron {
@@ -10,6 +15,7 @@
     margin-right: 0;
     background-image: linear-gradient(black, #6f4e37, green);
     color: aliceblue;
+    width: 100vw;
 }
 
 .btn {
@@ -22,11 +28,6 @@
     background-color: aliceblue;
     color: black;
 }
-
-/* #map {
-   /* float: left; */
-   /* margin-left: 120px; */
-/* } */ 
 
 img {
     height: 400px;
@@ -48,7 +49,6 @@ body {
     padding-top: 10px;
 }
 
-
 .dog-card-photo{
     display: block;
     margin-left: auto;
@@ -59,4 +59,15 @@ body {
 .index-card {
     margin-left: 5px;
     height: 50px;
+}
+
+.add-card {
+    /* height: 300px;
+    width: 300px;
+    text-align: center; */
+    font-size: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    /* padding: 50px; */
+    margin: 0%;
 }
