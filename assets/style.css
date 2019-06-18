@@ -7,13 +7,20 @@
     padding-top: 0px;
     padding-bottom: 10px;
     margin-bottom: 0px;
-    background-image: url("https://i1.wp.com/muddypaws.club/wp-content/uploads/2018/11/dog-banner.png");
     margin-right: 0;
+    background-image: linear-gradient(black, #6f4e37, green);
+    color: aliceblue;
 }
 
 .btn {
     margin-right: 5px;
     margin-left: 5px;
+    background-color: #6f4e37;
+}
+
+.btn:focus {
+    background-color: aliceblue;
+    color: black;
 }
 
 /* #map {
@@ -21,9 +28,6 @@
    /* margin-left: 120px; */
 /* } */ 
 
-.card {
-    float:right;
-}
 img {
     height: 400px;
 }
@@ -31,4 +35,28 @@ img {
 body {
     /* background-color: black; */
     background-image: url("https://www.redscape.nl/wp-content/uploads/2019/05/REDscape-Asia-Park-01-1900x1080.jpg");
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.dog-card {
+    margin-left: 35px;
+    height: 400px;
+    margin-bottom: 15px;
+    width: 200px;
+    max-width: 400px;
+    padding-top: 10px;
+}
+
+
+.dog-card-photo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 200px;
+}
+
+.index-card {
+    margin-left: 5px;
+    height: 50px;
 }

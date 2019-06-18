@@ -9,7 +9,8 @@
     <style>
       #map {
         height: 490px;
-        width: 450px;
+        width: 300px;
+        margin-left: 15px;
       }
     </style>
   </head>
@@ -18,8 +19,8 @@
       <div class="jumbotron">
             <h1 class="display-4">My Dog and Me!</h1>
             <hr class="my-4">
-            <button type="button" class="btn btn-primary">Parks!</button>
-            <button type="button" class="btn btn-secondary">Restaurants!</button>
+            <button type="button" class="btn btn-success">Parks!</button>
+            <button type="button" class="btn btn-success">Restaurants!</button>
             <button type="button" class="btn btn-success">Events!</button>
             <button type="button" class="btn btn-danger" onclick="window.location.href = 'adopt.html';">Adopt Me!</button>
           </div>
@@ -56,7 +57,7 @@
     </div>
     <div class="container">
         <div class="row">
-        <div id="map"class="col-6"></div>
+        <div id="map"class="col-5"></div>
         <script>
             var map, infoWindow;
       function initMap() {
@@ -99,9 +100,10 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8A7dw2S0hc2FbTfndcG85pXEfBR9GJnk&callback=initMap">
     </script>
          <!-- enter div for cards here. -->
-        </div>
+         <div class="add-card" class="col-7"></div>
+      </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="dog.js"></script>
