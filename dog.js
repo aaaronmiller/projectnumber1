@@ -18,14 +18,15 @@ $.ajax({
     }).then(function (data) {
 
         var results = data;//store data from ajax request in result var
-        var pictureDefault = "https://www.logoground.com/uploads/20172422017-06-034038115happy-cartoon-dog-logo.jpg";
-        var pictureToUse="";
-        var dogDescriptionDefault = "N/A";
-        var dogDescriptionToUse = "";
 
-        var dogSound = new Audio();
-        dogSound.src = "Dog Woof.mp3"
+        var pictureDefault = "https://www.logoground.com/uploads/20172422017-06-034038115happy-cartoon-dog-logo.jpg"
+        var photoToUse=""
+        var dogDescriptionDefault = "N/A"
+        var dogDescriptionToUse = ""
+        
+      
 
+ 
 
         console.log(data)
         //if theres no image the var pictureDefault will display the default pic
@@ -56,6 +57,8 @@ $.ajax({
             pawMeButton.attr("gender", results.animals[i].gender);
             pawMeButton.attr("description", results.animals[i].description);
             pawMeButton.attr("src", results.animals[i].url);
+
+
 
 
             dogImage.attr("src", pictureToUse);
