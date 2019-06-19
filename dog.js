@@ -183,17 +183,17 @@ $(function () {
                 // console.log(typeof data[i].location.latitude)
                 // console.log(typeof data[i].location.longitude)
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: data[i].name
-                });
+                // TODO modify label
+                // var infowindow = new google.maps.InfoWindow({
+                //     content: data[i].name
+                // });
 
                 // Add 10 dog park markers to map
                 var marker = new google.maps.Marker({
                     position: { lat: parseFloat(data[i].location.latitude), lng: parseFloat(data[i].location.longitude) },
                     map: map,
                     title: data[i].name,
-                    // change standard marker to ---
-                    icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                    icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
                 });
 
                 marker.addListener('click', function () {
@@ -206,10 +206,10 @@ $(function () {
             for (var i = 0; i < 6; i++) {
 
                 // Creating and storing a div tag
-                var dogParkDiv = $(`<div class="card" style="width: 18rem;">`);
+                var dogParkDiv = $(`<div class="card text-center" style="width: 18rem;">`);
 
                 // Creating a paragraph tag with the result info
-                var dogParkInfo = $("<p>").text(data[i].name + " hours: " + data[i].hours);
+                var dogParkInfo = $("<p>").html("<br> <h4>"+data[i].name+"</h4>" + "<h6> <b> <br>"+" Hours: " + "</b> " + data[i].hours+" </h6>");
 
                 // Appending the paragraph tag to the dogParkDiv
                 dogParkDiv.append(dogParkInfo);
@@ -231,8 +231,7 @@ $(function () {
                 position: { lat: parseFloat(data1[0].location.latitude), lng: parseFloat(data1[0].location.longitude) },
                 map: map,
                 title: data1[0].name,
-                // change standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
@@ -251,8 +250,7 @@ $(function () {
                 position: { lat: parseFloat(data2[0].location.latitude), lng: parseFloat(data2[0].location.longitude) },
                 map: map,
                 title: data2[0].name,
-                // changed standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
@@ -271,8 +269,7 @@ $(function () {
                 position: { lat: parseFloat(data3[0].location.latitude), lng: parseFloat(data3[0].location.longitude) },
                 map: map,
                 title: data3[0].name,
-                // changed standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
@@ -291,8 +288,7 @@ $(function () {
                 position: { lat: parseFloat(data4[0].location.latitude), lng: parseFloat(data4[0].location.longitude) },
                 map: map,
                 title: data4[0].name,
-                // changed standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
