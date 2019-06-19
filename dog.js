@@ -45,7 +45,7 @@ $.ajax({
                 dogDescriptionToUse = results.animals[i].description
             }
 
-            var dogDiv = $(`<div class="card" style="width: 18rem;">`); //creats and store div tag also so that pictures show up next to each other
+            var dogDiv = $(`<div class="card dog-card" style="width: 18rem;" >`); //creats and store div tag also so that pictures show up next to each other
             var p = $("<p class = name>").text(results.animals[i].name);//creats p tag with rating
             var dogImage = $(`<img class="card-img-top dog-card-photo">`);//creates img tag
             var pawMeButton = $(`<button type="button" class="btn btn-primary dog-button" data-toggle="modal" data-target="#more-info-modal"> Paw Me! Paw Me!</button>`)//creates button tag called paw me that opens modal
@@ -118,12 +118,12 @@ $(function () {
 
                 // Creating a paragraph tag with the result info
                 var dogParkInfo = $("<p>").text("Dog Park Info: " + data[i].name + ", Location: latitude " + data[i].location.latitude + " longitude " + data[i].location.latitude + ", hours: " + data[i].hours);
-
+            
                 // Appending the paragraph tag to the dogParkDiv
                 dogParkDiv.append(dogParkInfo);
 
                 // Prepending the dogParkDiv to the HTML page 
-                $("#dogParks-appear-here").prepend(dogParkDiv);
+            $("#dogParks-appear-here").prepend(dogParkDiv);
             }
         });
         
@@ -244,6 +244,102 @@ $(function () {
     })
 
 
+})
+
+// Dog Parks
+$(function () {
+
+    // Adding click event listener to all buttons
+    $(document).on("click", ".btn-primary", function () {
+
+        // Empty html <div>
+        $("#dogParks-appear-here").empty();
+
+        // Performing the AJAX request from Seattle Parks and Recreation; initial ten off leash dog parks  
+        $.ajax({
+            url: "https://data.seattle.gov/resource/j9km-ydkc.json?feature_desc=Dog Off Leash Area",
+            type: "GET",
+            // data: {
+            // "$limit": 100,
+            // "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
+            // }
+        }).then(function (data) {
+            console.log("data from seattle parks ", data);
+
+            // Looping through each result item
+            for (var i = 0; i < data.length; i++) {
+
+                // Creating and storing a div tag
+                var dogParkDiv = $("<div>");
+
+                // Creating a paragraph tag with the result info
+                var dogParkInfo = $("<p>").text("Dog Park Info: " + data[i].name + ", Location: latitude " + data[i].location.latitude + " longitude " + data[i].location.latitude + ", hours: " + data[i].hours);
+
+                // Appending the paragraph tag to the dogParkDiv
+                dogParkDiv.append(dogParkInfo);
+
+                // Prepending the dogParkDiv to the HTML page 
+                $("#dogParks-appear-here").prepend(dogParkDiv);
+            }
+        });
+    })
+
+
 
     // End of function
 })
+$("#rest-button").on("click", function(event) {
+    event.preventDefault();
+    $(".add-card").empty();
+    
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        // "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+restaurant&location=bellevue,WA",
+        "url": `"https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term='dog+friendly'+restaurants&latitude=` + pos.lat + `&longitude=` + pos.lng +`"`,
+        "method": "GET",
+        "headers": {
+            // "accept": "application/json",
+            // "Access-Control-Allow-Origin": "*",
+            "Authorization": "Bearer SDAEnMNqSOPl9_I9468qC_1PDuSvS67-h-HCkR6lPtwoYMA1bqU1yVT5pP1SUh_Cr3j4GucEh32EuhxxdUXZn7vBtrJ7V7zaD3ZgWmFIxsIDR0B3BY9ix3QxmeyLXHYx",
+            "cache-control": "no-cache",
+    
+    }
+}
+$.ajax(settings).then(function (response) {
+    
+    var bizName = [];
+    var bizLong = [];
+    var bizLat = [];
+    var bizAddressStreet = []
+    var bizAddressState = [];
+    var bizRating = [];
+    var bizPrice = [];
+    var bizUrl = [];
+    var bizPhone = [];
+    var restDiv = [];
+    var p = [];
+    
+    console.log(response);
+    
+    for (i=0; i<6;i++) { 
+        
+        bizName[i] = response.businesses[i].name;
+        bizLong[i] = response.businesses[i].coordinates.longitude;
+        bizLat[i] = response.businesses[i].coordinates.latitude;
+        bizAddressStreet[i] = response.businesses[i].location.display_address[0];
+        bizAddressState[i] = response.businesses[i].location.display_address[1];
+        bizRating[i] = response.businesses[i].rating;
+        bizPrice[i] = response.businesses[i].price;
+        bizUrl[i] = response.businesses[i].url;
+        bizPhone[i] = response.businesses[i].display_phone;
+        
+        restDiv = $(`<div class="card text-center">`); //creats and store div tag also so that pictures show up next to each other
+        p = $(`<div class=".card${i}"-title" style="width: 18rem;">`).html('<h4><a href="' + bizUrl[i] +'">' + bizName[i] + '</a></h4>' + bizAddressStreet[i] + '<br>' + bizAddressState[i] +'<p>' + bizPhone[i] +'</p><p>' + 'Rating:' + bizRating[i] +'</p><p>' + 'Price:' + bizPrice[i] +'</p>');//creats p tag with rating
+        
+        restDiv.append(p);
+        
+        $(".add-card").append(restDiv);//adds the dogDiv (div class) before the p tag
+    }
+});
+});
