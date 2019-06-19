@@ -15,12 +15,12 @@
     #map {
       height: 490px;
       width: 300px;
+      /* display: none; */
     }
   </style>
 </head>
 
 <body>
-  
     <!-- As a link -->
     <div class="jumbotron">
       <h1 class="display-4">My Dog and Me!</h1>
@@ -29,27 +29,31 @@
       <button type="button" id="rest-button" class="btn btn-success">Restaurants!</button>
       <button type="button" class="btn btn-danger" onclick="window.location.href = 'adopt.html';">Adopt Me!</button>
     </div>
+    <div class="container">
     <!-- <br> -->
-    <div class="row">
-      <div id="carousel" class="container">
+    <!-- <div class="row"> -->
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="http://bertsrentals.com/wp-content/uploads/2017/08/300x300-placeholder.jpg"
-                class="d-block w-100" alt="300x300-placeholder">
-            </div>
-            <div class="carousel-item">
-              <img src="http://bertsrentals.com/wp-content/uploads/2017/08/300x300-placeholder.jpg"
-                class="d-block w-100" alt="300x300-placeholder">
-            </div>
-            <div class="carousel-item">
-              <img src="http://bertsrentals.com/wp-content/uploads/2017/08/300x300-placeholder.jpg"
-                class="d-block w-100" alt="300x300-placeholder">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner dog-video">
+              <div class="carousel-item active">
+                  <div class="embed-responsive embed-responsive-21by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/a6KGPBflhiM?autoplay=1" allowfullscreen></iframe>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <div class="embed-responsive embed-responsive-21by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/bayyyVCP5zg?autoplay=1" allowfullscreen></iframe>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <div class="embed-responsive embed-responsive-21by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/dyto4vddSRA?autoplay=1" allowfullscreen></iframe>
+                  </div>
+              </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -60,10 +64,8 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-        </div>
-      </div>
 
-    </div>
+    <!-- </div> -->
     <div class="container">
       <div class="row">
         <div id="map" class="col-5"></div>
@@ -72,7 +74,7 @@
         <div class="add-card col-7"></div>
       </div>
     </div>
-  
+  </div>
     
       <!-- AJAX -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
