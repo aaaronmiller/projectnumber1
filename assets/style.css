@@ -9,23 +9,25 @@
 
 .jumbotron {
     text-align: center;
-    padding-top: 0px;
-    padding-bottom: 10px;
-    margin-bottom: 0px;
-    margin-right: 0;
-    background-image: linear-gradient(black, #6f4e37, green);
+    background-image: url("../assets/Images\ &\ Sound/dogbanner.png");
     color: aliceblue;
     width: 100vw;
+    background-repeat: no-repeat;
+    background-color: #303841;
+    /* background-attachment: fixed; */
+    background-position: center;
+    height: 175px;
+
 }
 
 .btn {
     margin-right: 5px;
-    margin-left: 5px;
-    background-color: #6f4e37;
+    margin-left: 20px;
+    color: black;
 }
 
 .btn:focus {
-    background-color: aliceblue;
+    background-color: black;
     color: black;
 }
 
@@ -35,9 +37,12 @@ img {
 
 body {
     /* background-color: black; */
-    background-image: url("https://www.redscape.nl/wp-content/uploads/2019/05/REDscape-Asia-Park-01-1900x1080.jpg");
-    margin-right: 0;
-    padding-right: 0;
+    /* margin-right: 0;
+    padding-right: 0; */
+    background-image: url("../assets/Images & Sound/dogwallpaper2.jpg");
+    background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-position: center;
 }
 
 .dog-card {
@@ -65,11 +70,12 @@ body {
     /* height: 300px;
     width: 300px;
     text-align: center; */
-    font-size: 10px;
+    font-size: 13px;
     display: flex;
     flex-wrap: wrap;
     /* padding: 50px; */
     margin: 0%;
+
 }
 
 .dog-video{
@@ -78,4 +84,9 @@ body {
     text-align: center;
     margin: 0 auto;
     display: block;
+}
+
+.card-color {
+    background-color: rgb(85, 71, 71);
+    color: white;
 }

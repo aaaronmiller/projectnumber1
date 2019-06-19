@@ -1,13 +1,14 @@
 
 // Google Maps
 var map, infoWindow;
-
+var latt = 0;
+var long = 0;
 // Initialize and add the map
 function initMap() {
     //creates map on the screen using Seattle lat/lng; asks user location and takes them there at zoom 12
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 47.6062, lng: -122.3321 },
-        zoom: 12
+        zoom: 10
     });
     infoWindow = new google.maps.InfoWindow;
 
@@ -20,7 +21,8 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
+            latt = position.coords.latitude;
+            long = position.coords.longitude;
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
@@ -73,7 +75,7 @@ $(document).ready(function () {
             var dogDescriptionToUse = "";
 
             var dogSound = new Audio();
-            dogSound.src = "Dog Woof.mp3"
+            dogSound.src = "./assets/Images & Sound/DogWood.mp3";
 
             console.log(data)
             //if theres no image the var pictureDefault will display the default pic
@@ -176,7 +178,7 @@ $(document).ready(function () {
             for (var i = 0; i < 6; i++) {
 
                 // Creating and storing a div tag
-                var dogParkDiv = $(`<div class="card text-center" style="width: 18rem;">`);
+                var dogParkDiv = $(`<div class="card text-center card-color" style="width: 18rem;">`);
 
                 // Creating a paragraph tag with the result info
                 var dogParkInfo = $("<p>").html("<br> <h4>" + data[i].name + "</h4>" + "<h6> <b> <br>" + " Hours: " + "</b> " + data[i].hours + " </h6>");
@@ -278,7 +280,7 @@ $(document).ready(function () {
             "async": true,
             "crossDomain": true,
             // "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+restaurant&location=bellevue,WA",
-            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term='dog+friendly'+restaurants&latitude=47.589982&longitude=-122.297814",
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term='dog+friendly'+restaurants&latitude=" + latt + `&longitude=` + long ,
             "method": "GET",
             "headers": {
                 // "accept": "application/json",
@@ -316,8 +318,8 @@ $(document).ready(function () {
                 bizUrl[i] = response.businesses[i].url;
                 bizPhone[i] = response.businesses[i].display_phone;
 
-                restDiv = $(`<div class="card text-center">`); //creats and store div tag also so that pictures show up next to each other
-                p = $(`<div class=".card${i}"-title" style="width: 18rem;">`).html('<h4><a href="' + bizUrl[i] + '">' + bizName[i] + '</a></h4>' + bizAddressStreet[i] + '<br>' + bizAddressState[i] + '<p>' + bizPhone[i] + '</p><p>' + 'Rating:' + bizRating[i] + '</p><p>' + 'Price:' + bizPrice[i] + '</p>');//creats p tag with rating
+                restDiv = $(`<div class="card text-center card-color">`); //creats and store div tag also so that pictures show up next to each other
+                p = $(`<div class=".card${i}"-title" style="width: 18rem;">`).html('<h4><a href="' + bizUrl[i] + '">' + bizName[i] + '</a></h4>' + bizAddressStreet[i] + bizAddressState[i] + '<p>' + bizPhone[i] + '</p><p>' + 'Rating:' + bizRating[i] + '</p><p>' + 'Price:' + bizPrice[i] + '</p>');//creats p tag with rating
 
                 restDiv.append(p);
 

@@ -37,11 +37,16 @@
   <body>
       <!-- As a link -->
       <div class="jumbotron">
-            <h1 class="display-4">My Dog and Me!</h1>
+            <h1 class="display-4"></h1>
             <hr class="my-4">
-            <button type="button" class="btn btn-danger" onclick="window.location.href = 'index.html';">Main Page</button>
           </div>
-      <br>
+          <div class="row">
+          <div class="col-5"></div>
+          <div class="col-2">
+          <button type="button" class="btn btn-secondary shadow p-3 mb-5 bg-white rounded text-center" onclick="window.location.href = 'index.html';">Main Page</button>
+          </div>
+          <div class="col-5"></div>
+          </div>
       <div id="dog-gallery-container" class="d-md-flex flex-wrap"></div>
       <!-- Modal -->
   <div class="modal fade" id="more-info-modal">
