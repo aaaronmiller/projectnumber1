@@ -71,11 +71,9 @@ $(document).ready(function () {
             var pictureToUse = "";
             var dogDescriptionDefault = "N/A";
             var dogDescriptionToUse = "";
-            
 
             var dogSound = new Audio();
             dogSound.src = "Dog Woof.mp3"
-
 
             console.log(data)
             //if theres no image the var pictureDefault will display the default pic
@@ -94,12 +92,12 @@ $(document).ready(function () {
                     dogDescriptionToUse = results.animals[i].description
                 }
 
-                
+
                 var dogDiv = $(`<div class="card dog-card" style="width: 18rem;" >`); //creats and store div tag also so that pictures show up next to each other
                 var p = $("<p class = name>").text(results.animals[i].name);//creats p tag with rating
                 var dogImage = $(`<img class="card-img-top dog-card-photo">`);//creates img tag
                 var pawMeButton = $(`<button type="button" class="btn btn-primary dog-button" data-toggle="modal" data-target="#more-info-modal"> Paw Me! Paw Me!</button>`)//creates button tag called paw me that opens modal
-    
+
                 //creates attribute for Paw M button
                 pawMeButton.attr("pic", pictureToUse);
                 pawMeButton.attr("name", results.animals[i].name);
@@ -107,17 +105,17 @@ $(document).ready(function () {
                 pawMeButton.attr("gender", results.animals[i].gender);
                 pawMeButton.attr("description", results.animals[i].description);
                 pawMeButton.attr("src", results.animals[i].url);
-    
+
                 dogImage.attr("src", pictureToUse);
                 //adds paragraph and image tag to dogDiv
                 dogDiv.append(dogImage);
                 dogDiv.append(p);
                 dogDiv.append(pawMeButton);//adds button to dogDiv
                 $("#dog-gallery-container").prepend(dogDiv);//adds the dogDiv (div class) before the p tag
-    
+
                 $('.dog-button').on('click', (e) => {
                     console.log(e)
-    
+
                     //when you click on the "paw me" button the modal with pop up with the info below.
                     $("#dog-image").attr("src", e.target.attributes.pic.nodeValue)
                     $("#dog-name").text(e.target.attributes.name.nodeValue)
@@ -127,8 +125,8 @@ $(document).ready(function () {
                     $("#dog-link").text(e.target.attributes.src.nodeValue)
                     $("#dog-link").attr("href", e.target.attributes.src.nodeValue)
                     var DogSound = new Audio("./assets/Images & Sound/DogWoof.mp3");
-                $('.dog-button').click(e =>DogSound.play());
-            })
+                    $('.dog-button').click(e => DogSound.play());
+                })
 
 
             }
@@ -155,17 +153,17 @@ $(document).ready(function () {
                 // console.log(typeof data[i].location.latitude)
                 // console.log(typeof data[i].location.longitude)
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: data[i].name
-                });
+                // TODO modify label
+                // var infowindow = new google.maps.InfoWindow({
+                //     content: data[i].name
+                // });
 
                 // Add 10 dog park markers to map
                 var marker = new google.maps.Marker({
                     position: { lat: parseFloat(data[i].location.latitude), lng: parseFloat(data[i].location.longitude) },
                     map: map,
                     title: data[i].name,
-                    // change standard marker to ---
-                    icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                    icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
                 });
 
                 marker.addListener('click', function () {
@@ -178,10 +176,10 @@ $(document).ready(function () {
             for (var i = 0; i < 6; i++) {
 
                 // Creating and storing a div tag
-                var dogParkDiv = $(`<div class="card" style="width: 18rem;">`);
+                var dogParkDiv = $(`<div class="card text-center" style="width: 18rem;">`);
 
                 // Creating a paragraph tag with the result info
-                var dogParkInfo = $("<p>").text(data[i].name + " hours: " + data[i].hours);
+                var dogParkInfo = $("<p>").html("<br> <h4>" + data[i].name + "</h4>" + "<h6> <b> <br>" + " Hours: " + "</b> " + data[i].hours + " </h6>");
 
                 // Appending the paragraph tag to the dogParkDiv
                 dogParkDiv.append(dogParkInfo);
@@ -203,8 +201,7 @@ $(document).ready(function () {
                 position: { lat: parseFloat(data1[0].location.latitude), lng: parseFloat(data1[0].location.longitude) },
                 map: map,
                 title: data1[0].name,
-                // change standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
@@ -223,8 +220,7 @@ $(document).ready(function () {
                 position: { lat: parseFloat(data2[0].location.latitude), lng: parseFloat(data2[0].location.longitude) },
                 map: map,
                 title: data2[0].name,
-                // changed standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
@@ -243,8 +239,7 @@ $(document).ready(function () {
                 position: { lat: parseFloat(data3[0].location.latitude), lng: parseFloat(data3[0].location.longitude) },
                 map: map,
                 title: data3[0].name,
-                // changed standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
@@ -263,8 +258,7 @@ $(document).ready(function () {
                 position: { lat: parseFloat(data4[0].location.latitude), lng: parseFloat(data4[0].location.longitude) },
                 map: map,
                 title: data4[0].name,
-                // changed standard marker to ---
-                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                icon: 'https://lh3.googleusercontent.com/SSfWxjRchUV8ODwecknrfaOv7DmaZy6Kw7zH-z_GlHSOyUQjFeP_LB4aIT5FTEJuIDs=s40-rw'
             });
 
             marker.addListener('click', function () {
@@ -328,13 +322,32 @@ $(document).ready(function () {
                 restDiv.append(p);
 
                 $(".add-card").append(restDiv);//adds the dogDiv (div class) before the p tag
+
+                console.log(typeof(bizLong[i]));
+                console.log(bizLong[i]);
+                console.log(bizLat[i]);
+
+
+                // Add dog friendly restaurant markers to map
+                var markerRest = new google.maps.Marker({
+                    position: { lat: bizLat[i], lng: bizLong[i] },
+                    map: map,
+                    title: bizName[i],
+                    icon: 'https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png,icons/onion/1577-food-fork-knife_4x.png&highlight=ff000000,f57c00,ff000000&scale=1.0'
+                });
+
+                markerRest.addListener('click', function () {
+                    infowindow.open(map, markerRest);
+                });
+
+
             }
         });
         // End of on click button for restaurants
     });
     // End of document ready function
 })
-$('.btn').click(function() {
+$('.btn').click(function () {
     $('#carouselExampleIndicators').hide();
     $('#map').show();
     // document.getElementById('#map').style.display = "block";
