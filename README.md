@@ -17,9 +17,15 @@ Navigate to https://github.com/RedChampion/projectnumber1 to clone the repositor
 
 ## Built With
 Visual Studio Code
+<br>
 HTML
+<br>
 CSS
+<br>
 Bootstrap
+<br>
 JQuery
+<br>
 Javascript
+<br>
 AJAX/JSON
