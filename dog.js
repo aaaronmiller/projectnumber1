@@ -45,7 +45,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 } // End of map function
 
 // Document ready function
-$(function () {
+$(document).ready(function () {
+    $('#map').hide();
     // Dog Adoption
     $.ajax({
         method: "POST",
@@ -74,7 +75,6 @@ $(function () {
             var dogSound = new Audio();
             dogSound.src = "Dog Woof.mp3"
 
-
             console.log(data)
             //if theres no image the var pictureDefault will display the default pic
             for (var i = 0; i < results.animals.length; i++) {
@@ -92,12 +92,13 @@ $(function () {
                     dogDescriptionToUse = results.animals[i].description
                 }
 
-                var dogDiv = $(`<div class="card" style="width: 18rem;">`); //creats and store div tag also so that pictures show up next to each other
+
+                var dogDiv = $(`<div class="card dog-card" style="width: 18rem;" >`); //creats and store div tag also so that pictures show up next to each other
                 var p = $("<p class = name>").text(results.animals[i].name);//creats p tag with rating
                 var dogImage = $(`<img class="card-img-top dog-card-photo">`);//creates img tag
                 var pawMeButton = $(`<button type="button" class="btn btn-primary dog-button" data-toggle="modal" data-target="#more-info-modal"> Paw Me! Paw Me!</button>`)//creates button tag called paw me that opens modal
 
-                //creates attribute for pawMe button
+                //creates attribute for Paw M button
                 pawMeButton.attr("pic", pictureToUse);
                 pawMeButton.attr("name", results.animals[i].name);
                 pawMeButton.attr("breeds", results.animals[i].breeds.primary);
@@ -123,45 +124,14 @@ $(function () {
                     $("#dog-description").html("<b> About Me: </b>" + e.target.attributes.description.nodeValue)
                     $("#dog-link").text(e.target.attributes.src.nodeValue)
                     $("#dog-link").attr("href", e.target.attributes.src.nodeValue)
-
+                    var DogSound = new Audio("./assets/Images & Sound/DogWoof.mp3");
+                    $('.dog-button').click(e => DogSound.play());
                 })
+
+
             }
-
-            var dogDiv = $(`<div class="card dog-card" style="width: 18rem;" >`); //creats and store div tag also so that pictures show up next to each other
-            var p = $("<p class = name>").text(results.animals[i].name);//creats p tag with rating
-            var dogImage = $(`<img class="card-img-top dog-card-photo">`);//creates img tag
-            var pawMeButton = $(`<button type="button" class="btn btn-primary dog-button" data-toggle="modal" data-target="#more-info-modal"> Paw Me! Paw Me!</button>`)//creates button tag called paw me that opens modal
-
-            //creates attribute for Paw M button
-            pawMeButton.attr("pic", pictureToUse);
-            pawMeButton.attr("name", results.animals[i].name);
-            pawMeButton.attr("breeds", results.animals[i].breeds.primary);
-            pawMeButton.attr("gender", results.animals[i].gender);
-            pawMeButton.attr("description", results.animals[i].description);
-            pawMeButton.attr("src", results.animals[i].url);
-
-            dogImage.attr("src", pictureToUse);
-            //adds paragraph and image tag to dogDiv
-            dogDiv.append(dogImage);
-            dogDiv.append(p);
-            dogDiv.append(pawMeButton);//adds button to dogDiv
-            $("#dog-gallery-container").prepend(dogDiv);//adds the dogDiv (div class) before the p tag
-
-            $('.dog-button').on('click', (e) => {
-                console.log(e)
-
-                //when you click on the "paw me" button the modal with pop up with the info below.
-                $("#dog-image").attr("src", e.target.attributes.pic.nodeValue)
-                $("#dog-name").text(e.target.attributes.name.nodeValue)
-                $("#dog-breed").html("<b> Breed:  </b>" + e.target.attributes.breeds.nodeValue)
-                $("#dog-gender").html("<b> Gender: </b>" + e.target.attributes.gender.nodeValue)
-                $("#dog-description").html("<b> About Me: </b>" + e.target.attributes.description.nodeValue)
-                $("#dog-link").text(e.target.attributes.src.nodeValue)
-                $("#dog-link").attr("href", e.target.attributes.src.nodeValue)
-
-            })
         })
-    })
+    });
 
     // Dog Parks
     // Adding click event listener to all buttons 
@@ -209,7 +179,7 @@ $(function () {
                 var dogParkDiv = $(`<div class="card text-center" style="width: 18rem;">`);
 
                 // Creating a paragraph tag with the result info
-                var dogParkInfo = $("<p>").html("<br> <h4>"+data[i].name+"</h4>" + "<h6> <b> <br>"+" Hours: " + "</b> " + data[i].hours+" </h6>");
+                var dogParkInfo = $("<p>").html("<br> <h4>" + data[i].name + "</h4>" + "<h6> <b> <br>" + " Hours: " + "</b> " + data[i].hours + " </h6>");
 
                 // Appending the paragraph tag to the dogParkDiv
                 dogParkDiv.append(dogParkInfo);
@@ -308,7 +278,7 @@ $(function () {
             "async": true,
             "crossDomain": true,
             // "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+restaurant&location=bellevue,WA",
-            "url": `"https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term='dog+friendly'+restaurants&latitude=` + pos.lat + `&longitude=` + pos.lng + `"`,
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term='dog+friendly'+restaurants&latitude=47.589982&longitude=-122.297814",
             "method": "GET",
             "headers": {
                 // "accept": "application/json",
@@ -352,9 +322,33 @@ $(function () {
                 restDiv.append(p);
 
                 $(".add-card").append(restDiv);//adds the dogDiv (div class) before the p tag
+
+                console.log(typeof(bizLong[i]));
+                console.log(bizLong[i]);
+                console.log(bizLat[i]);
+
+
+                // Add dog friendly restaurant markers to map
+                var markerRest = new google.maps.Marker({
+                    position: { lat: bizLat[i], lng: bizLong[i] },
+                    map: map,
+                    title: bizName[i],
+                    icon: 'https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png,icons/onion/1577-food-fork-knife_4x.png&highlight=ff000000,f57c00,ff000000&scale=1.0'
+                });
+
+                markerRest.addListener('click', function () {
+                    infowindow.open(map, markerRest);
+                });
+
+
             }
         });
         // End of on click button for restaurants
     });
     // End of document ready function
 })
+$('.btn').click(function () {
+    $('#carouselExampleIndicators').hide();
+    $('#map').show();
+    // document.getElementById('#map').style.display = "block";
+});
