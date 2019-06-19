@@ -1,11 +1,12 @@
+
 // Google Maps
 var map, infoWindow;
 
 // Initialize and add the map
 function initMap() {
-    //creates map on the screen, using Seattle lat/lng asks user location and takes them there at zoom 12
+    //creates map on the screen using Seattle lat/lng; asks user location and takes them there at zoom 12
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 47.6062, lng: 122.3321 },
+        center: { lat: 47.6062, lng: -122.3321 },
         zoom: 12
     });
     infoWindow = new google.maps.InfoWindow;
@@ -31,16 +32,19 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
+
 }
-// if location isnt accessed gives error
+
+// if location isn't accessed gives error
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
         'Error: The Geolocation service failed.' :
         'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
-}
+} // End of map function
 
+// Document ready function
 $(function () {
     // Dog Adoption
     $.ajax({
@@ -101,7 +105,6 @@ $(function () {
                 pawMeButton.attr("description", results.animals[i].description);
                 pawMeButton.attr("src", results.animals[i].url);
 
-
                 dogImage.attr("src", pictureToUse);
                 //adds paragraph and image tag to dogDiv
                 dogDiv.append(dogImage);
@@ -112,7 +115,6 @@ $(function () {
                 $('.dog-button').on('click', (e) => {
                     console.log(e)
 
-
                     //when you click on the "paw me" button the modal with pop up with the info below.
                     $("#dog-image").attr("src", e.target.attributes.pic.nodeValue)
                     $("#dog-name").text(e.target.attributes.name.nodeValue)
@@ -122,20 +124,51 @@ $(function () {
                     $("#dog-link").text(e.target.attributes.src.nodeValue)
                     $("#dog-link").attr("href", e.target.attributes.src.nodeValue)
 
-
                 })
             }
 
+            var dogDiv = $(`<div class="card dog-card" style="width: 18rem;" >`); //creats and store div tag also so that pictures show up next to each other
+            var p = $("<p class = name>").text(results.animals[i].name);//creats p tag with rating
+            var dogImage = $(`<img class="card-img-top dog-card-photo">`);//creates img tag
+            var pawMeButton = $(`<button type="button" class="btn btn-primary dog-button" data-toggle="modal" data-target="#more-info-modal"> Paw Me! Paw Me!</button>`)//creates button tag called paw me that opens modal
 
+            //creates attribute for Paw M button
+            pawMeButton.attr("pic", pictureToUse);
+            pawMeButton.attr("name", results.animals[i].name);
+            pawMeButton.attr("breeds", results.animals[i].breeds.primary);
+            pawMeButton.attr("gender", results.animals[i].gender);
+            pawMeButton.attr("description", results.animals[i].description);
+            pawMeButton.attr("src", results.animals[i].url);
+
+            dogImage.attr("src", pictureToUse);
+            //adds paragraph and image tag to dogDiv
+            dogDiv.append(dogImage);
+            dogDiv.append(p);
+            dogDiv.append(pawMeButton);//adds button to dogDiv
+            $("#dog-gallery-container").prepend(dogDiv);//adds the dogDiv (div class) before the p tag
+
+            $('.dog-button').on('click', (e) => {
+                console.log(e)
+
+                //when you click on the "paw me" button the modal with pop up with the info below.
+                $("#dog-image").attr("src", e.target.attributes.pic.nodeValue)
+                $("#dog-name").text(e.target.attributes.name.nodeValue)
+                $("#dog-breed").html("<b> Breed:  </b>" + e.target.attributes.breeds.nodeValue)
+                $("#dog-gender").html("<b> Gender: </b>" + e.target.attributes.gender.nodeValue)
+                $("#dog-description").html("<b> About Me: </b>" + e.target.attributes.description.nodeValue)
+                $("#dog-link").text(e.target.attributes.src.nodeValue)
+                $("#dog-link").attr("href", e.target.attributes.src.nodeValue)
+
+            })
         })
-
     })
 
     // Dog Parks
-    // Adding click event listener to all buttons <<TODO Change this to only the Park Button>>
+    // Adding click event listener to all buttons 
     $(document).on("click", "#park-button", function () {
+
         // Empty html <div>
-        $("#dogParks-appear-here").empty();
+        $(".add-card").empty();
 
         // Performing the AJAX request from Seattle Parks and Recreation; initial ten off leash dog parks  
         $.ajax({
@@ -144,31 +177,22 @@ $(function () {
         }).then(function (data) {
             console.log("data from Seattle Parks", data);
 
-            // Looping through each result item
+            // Creating the map markers
             for (var i = 0; i < data.length; i++) {
 
-                // Creating and storing a div tag
-                var dogParkDiv = $(`<div class="card" style="width: 18rem;">`);
+                // console.log(typeof data[i].location.latitude)
+                // console.log(typeof data[i].location.longitude)
 
-                // Creating a paragraph tag with the result info
-                var dogParkInfo = $("<p>").text("Dog Park Info: " + data[i].name + " hours: " + data[i].hours);
-
-                console.log("lat " + data[i].location.latitude);
-                console.log("lng " + data[i].location.longitude);
-
-                // Auto generate dog park pins
                 var infowindow = new google.maps.InfoWindow({
                     content: data[i].name
                 });
 
-                console.log(typeof data[i].location.latitude)
-                console.log(typeof data[i].location.longitude)
-
+                // Add 10 dog park markers to map
                 var marker = new google.maps.Marker({
                     position: { lat: parseFloat(data[i].location.latitude), lng: parseFloat(data[i].location.longitude) },
                     map: map,
                     title: data[i].name,
-
+                    // change standard marker to ---
                     icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
                 });
 
@@ -176,120 +200,165 @@ $(function () {
                     infowindow.open(map, marker);
                 });
 
+            } // End of for loop
+
+            // Creating 6 cards
+            for (var i = 0; i < 6; i++) {
+
+                // Creating and storing a div tag
+                var dogParkDiv = $(`<div class="card" style="width: 18rem;">`);
+
+                // Creating a paragraph tag with the result info
+                var dogParkInfo = $("<p>").text(data[i].name + " hours: " + data[i].hours);
+
                 // Appending the paragraph tag to the dogParkDiv
                 dogParkDiv.append(dogParkInfo);
 
                 // Prepending the dogParkDiv to the HTML page 
                 $(".add-card").prepend(dogParkDiv);
-
-                // End of for loop
             }
-            // End of Seattle Parks AJAX data
+
+        }); // End of Seattle Parks AJAX data
+
+        // Performing the AJAX request from Seattle Parks and Recreation for Northacres Park
+        $.ajax({
+            url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Northacres Park",
+            type: "GET",
+        }).then(function (data1) {
+            console.log("data from Northacres ", data1);
+
+            var marker = new google.maps.Marker({
+                position: { lat: parseFloat(data1[0].location.latitude), lng: parseFloat(data1[0].location.longitude) },
+                map: map,
+                title: data1[0].name,
+                // change standard marker to ---
+                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
         });
 
+        // Performing the AJAX request from Seattle Parks and Recreation for Woodland Park
+        $.ajax({
+            url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Woodland Park",
+            type: "GET",
+        }).then(function (data2) {
+            console.log("data from Woodland ", data2);
+
+            var marker = new google.maps.Marker({
+                position: { lat: parseFloat(data2[0].location.latitude), lng: parseFloat(data2[0].location.longitude) },
+                map: map,
+                title: data2[0].name,
+                // changed standard marker to ---
+                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        });
+
+        // Performing the AJAX request from Seattle Parks and Recreation for Regrade Park
+        $.ajax({
+            url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Regrade Park",
+            type: "GET",
+        }).then(function (data3) {
+            console.log("data from Regarade ", data3);
+
+            var marker = new google.maps.Marker({
+                position: { lat: parseFloat(data3[0].location.latitude), lng: parseFloat(data3[0].location.longitude) },
+                map: map,
+                title: data3[0].name,
+                // changed standard marker to ---
+                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        });
+
+        // Performing the AJAX request from Seattle Parks and Recreation for Magnolia Park
+        $.ajax({
+            url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Magnolia Park",
+            type: "GET",
+        }).then(function (data4) {
+            console.log("data from Magnolia ", data4);
+
+            var marker = new google.maps.Marker({
+                position: { lat: parseFloat(data4[0].location.latitude), lng: parseFloat(data4[0].location.longitude) },
+                map: map,
+                title: data4[0].name,
+                // changed standard marker to ---
+                icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        });
+
+    }) // End of on click dog park function
 
 
+    // Dog Friendly Restaurants 
+    $("#rest-button").on("click", function (event) {
+        event.preventDefault();
+        $(".add-card").empty();
 
-        // Northacres Park
-        // $.ajax({
-        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Northacres Park",
-        //   type: "GET",
-        //   // data: {
-        //   //   "$limit": 100,
-        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
-        //   // }
-        // }).done(function (data1) {
-        //   console.log("data from Northacres ", data1);
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            // "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=dog+restaurant&location=bellevue,WA",
+            "url": `"https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term='dog+friendly'+restaurants&latitude=` + pos.lat + `&longitude=` + pos.lng + `"`,
+            "method": "GET",
+            "headers": {
+                // "accept": "application/json",
+                // "Access-Control-Allow-Origin": "*",
+                "Authorization": "Bearer SDAEnMNqSOPl9_I9468qC_1PDuSvS67-h-HCkR6lPtwoYMA1bqU1yVT5pP1SUh_Cr3j4GucEh32EuhxxdUXZn7vBtrJ7V7zaD3ZgWmFIxsIDR0B3BY9ix3QxmeyLXHYx",
+                "cache-control": "no-cache",
 
-        //   // Creating and storing a div tag
-        //   var dogParkDiv = $("<div>");
+            }
+        }
+        $.ajax(settings).then(function (response) {
 
-        //   // Creating a paragraph tag with the result
-        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data1[0].name + ", Location: latitude " +data1[0].location.latitude+ " longitude "+ data1[0].location.latitude+ ", hours: "+ data1[0].hours);
+            var bizName = [];
+            var bizLong = [];
+            var bizLat = [];
+            var bizAddressStreet = []
+            var bizAddressState = [];
+            var bizRating = [];
+            var bizPrice = [];
+            var bizUrl = [];
+            var bizPhone = [];
+            var restDiv = [];
+            var p = [];
 
-        //   // Appending the paragraph ta1 to the dogParkDiv
-        //   dogParkDiv.append(dogParkInfo);
+            console.log(response);
 
-        //   // Prepending the dogParkDiv to the HTML page 
-        //   $("#dogParks-appear-here").prepend(dogParkDiv);
-        // });
+            for (i = 0; i < 6; i++) {
 
-        // Woodland Park
-        // $.ajax({
-        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Woodland Park",
-        //   type: "GET",
-        //   // data: {
-        //   //   "$limit": 5000,
-        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
-        //   // }
-        // }).done(function (data2) {
-        //   console.log("data from Woodland ", data2);
+                bizName[i] = response.businesses[i].name;
+                bizLong[i] = response.businesses[i].coordinates.longitude;
+                bizLat[i] = response.businesses[i].coordinates.latitude;
+                bizAddressStreet[i] = response.businesses[i].location.display_address[0];
+                bizAddressState[i] = response.businesses[i].location.display_address[1];
+                bizRating[i] = response.businesses[i].rating;
+                bizPrice[i] = response.businesses[i].price;
+                bizUrl[i] = response.businesses[i].url;
+                bizPhone[i] = response.businesses[i].display_phone;
 
-        //   // Creating and storing a div tag
-        //   var dogParkDiv = $("<div>");
+                restDiv = $(`<div class="card text-center">`); //creats and store div tag also so that pictures show up next to each other
+                p = $(`<div class=".card${i}"-title" style="width: 18rem;">`).html('<h4><a href="' + bizUrl[i] + '">' + bizName[i] + '</a></h4>' + bizAddressStreet[i] + '<br>' + bizAddressState[i] + '<p>' + bizPhone[i] + '</p><p>' + 'Rating:' + bizRating[i] + '</p><p>' + 'Price:' + bizPrice[i] + '</p>');//creats p tag with rating
 
-        //   // Creating a paragraph tag with the result
-        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data2[0].name + ", Location: latitude " +data2[0].location.latitude+ " longitude "+ data2[0].location.latitude+ ", hours: "+ data2[0].hours);
+                restDiv.append(p);
 
-        //   // Appending the paragraph ta1 to the dogParkDiv
-        //   dogParkDiv.append(dogParkInfo);
-
-        //   // Prepending the dogParkDiv to the HTML page 
-        //   $("#dogParks-appear-here").prepend(dogParkDiv);
-        // });
-
-        // Regrade Park
-        // $.ajax({
-        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Regrade Park",
-        //   type: "GET",
-        //   // data: {
-        //   //   "$limit": 5000,
-        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
-        //   // }
-        // }).done(function (data3) {
-        //   console.log("data from Regarade ", data3);
-
-        //   // Creating and storing a div tag
-        //   var dogParkDiv = $("<div>");
-
-        //   // Creating a paragraph tag with the result
-        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data3[0].name + ", Location: latitude " +data3[0].location.latitude+ " longitude "+ data3[0].location.latitude+ ", hours: "+ data3[0].hours);
-
-        //   // Appending the paragraph ta1 to the dogParkDiv
-        //   dogParkDiv.append(dogParkInfo);
-
-        //   // Prepending the dogParkDiv to the HTML page 
-        //   $("#dogParks-appear-here").prepend(dogParkDiv);
-        // });
-
-        // Magnolia Park
-        // $.ajax({
-        //   url: "https://data.seattle.gov/resource/j9km-ydkc.json?name=Magnolia Park",
-        //   type: "GET",
-        //   // data: {
-        //   //   "$limit": 5000,
-        //   //   "$$app_token": "3R7XyKNOQtmYrrVv2BUjkrWzg"
-        //   // }
-        // }).done(function (data4) {
-        //   console.log("data from Magnolia ", data4);
-
-        //   // Creating and storing a div tag
-        //   var dogParkDiv = $("<div>");
-
-        //   // Creating a paragraph tag with the result
-        //   var dogParkInfo = $("<p>").text("Dog Park Info: " + data4[0].name + ", Location: latitude " +data4[0].location.latitude+ " longitude "+ data4[0].location.latitude+ ", hours: "+ data4[0].hours);
-
-        //   // Appending the paragraph ta1 to the dogParkDiv
-        //   dogParkDiv.append(dogParkInfo);
-
-        //   // Prepending the dogParkDiv to the HTML page 
-        //   $("#dogParks-appear-here").prepend(dogParkDiv);
-        // });
-
-
-
-
-        // End of onclick function
-    })
+                $(".add-card").append(restDiv);//adds the dogDiv (div class) before the p tag
+            }
+        });
+        // End of on click button for restaurants
+    });
     // End of document ready function
 })
