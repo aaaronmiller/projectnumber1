@@ -75,7 +75,7 @@ $(document).ready(function () {
             var dogDescriptionToUse = "";
 
             var dogSound = new Audio();
-            dogSound.src = "./assets/Images & Sound/DogWoof.mp3";
+            dogSound.src = "./assets/Images & Sound/DogWood.mp3";
 
             console.log(data)
             //if theres no image the var pictureDefault will display the default pic
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 var dogDiv = $(`<div class="card dog-card" style="width: 18rem;" >`); //creats and store div tag also so that pictures show up next to each other
                 var p = $("<p class = name>").text(results.animals[i].name);//creats p tag with rating
                 var dogImage = $(`<img class="card-img-top dog-card-photo">`);//creates img tag
-                var pawMeButton = $(`<button type="button" class="btn btn-outline-secondary shadow-lg p-3 mb-5 rounded text-center dog-button" data-toggle="modal" data-target="#more-info-modal">Paw Me! Paw Me!</button>`)//creates button tag called paw me that opens modal
+                var pawMeButton = $(`<button type="button" class="btn btn-primary dog-button" data-toggle="modal" data-target="#more-info-modal"> Paw Me! Paw Me!</button>`)//creates button tag called paw me that opens modal
 
                 //creates attribute for Paw M button
                 pawMeButton.attr("pic", pictureToUse);
@@ -124,11 +124,8 @@ $(document).ready(function () {
                     $("#dog-breed").html("<b> Breed:  </b>" + e.target.attributes.breeds.nodeValue)
                     $("#dog-gender").html("<b> Gender: </b>" + e.target.attributes.gender.nodeValue)
                     $("#dog-description").html("<b> About Me: </b>" + e.target.attributes.description.nodeValue)
-                    
-                    
-                    $("#dog-link").html('<h4><a href="' + e.target.attributes.src.nodeValue + '">Link</a></h4>')
-                    // $("#dog-link").text(e.target.attributes.src.nodeValue)
-                    // $("#dog-link").attr("href", e.target.attributes.src.nodeValue)
+                    $("#dog-link").text(e.target.attributes.src.nodeValue)
+                    $("#dog-link").attr("href", e.target.attributes.src.nodeValue)
                     var DogSound = new Audio("./assets/Images & Sound/DogWoof.mp3");
                     $('.dog-button').click(e => DogSound.play());
                 })
@@ -322,7 +319,7 @@ $(document).ready(function () {
                 bizPhone[i] = response.businesses[i].display_phone;
 
                 restDiv = $(`<div class="card text-center card-color">`); //creats and store div tag also so that pictures show up next to each other
-                p = $(`<div class="card${i}-title rest-card" style="width: 18rem;">`).html('<h4><a href="' + bizUrl[i] + '">' + bizName[i] + '</a></h4>' + bizAddressStreet[i] + bizAddressState[i] + '<p>' + bizPhone[i] + '</p><p>' + 'Rating: ' + bizRating[i] + '</p><p>' + 'Price: ' + bizPrice[i] + '</p>');//creats p tag with rating
+                p = $(`<div class=".card${i}"-title" style="width: 18rem;">`).html('<h4><a href="' + bizUrl[i] + '">' + bizName[i] + '</a></h4>' + bizAddressStreet[i] + bizAddressState[i] + '<p>' + bizPhone[i] + '</p><p>' + 'Rating:' + bizRating[i] + '</p><p>' + 'Price:' + bizPrice[i] + '</p>');//creats p tag with rating
 
                 restDiv.append(p);
 
