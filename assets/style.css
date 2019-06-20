@@ -27,8 +27,8 @@
 }
 
 .btn:focus {
-    background-color: black;
-    color: black;
+    /* background-color: black; */
+    /* color: black; */
 }
 
 img {
@@ -43,6 +43,8 @@ body {
     background-repeat: no-repeat;
    background-attachment: fixed;
    background-position: center;
+    font-family: 'Oswald', sans-serif;
+
 }
 
 .dog-card {
@@ -90,3 +92,28 @@ body {
     background-color: rgb(85, 71, 71);
     color: white;
 }
+
+/* unvisited link */
+a:link {
+    color: #9ea6af;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: rgb(211, 208, 208);
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color: rgb(87, 83, 85);
+  }
+  
+  /* selected link */
+  a:active {
+    color: rgb(229, 255, 0);
+  }
+
+  .rest-card {
+      border: 5px 5px 5px 5px;
+      border-color: white;
+  }
